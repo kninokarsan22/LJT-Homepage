@@ -40,8 +40,11 @@ collections:
   teaching:
     output: false
 
+# Load only the two requested content pages (and the template's 404 page).
 include:
-  - _pages
+  - _pages/about.md
+  - _pages/publications.html
+  - _pages/404.md
 exclude:
   - .bundle
   - .devcontainer
@@ -49,6 +52,7 @@ exclude:
   - .jekyll-cache
   - .sass-cache
   - _drafts
+  - _pages
   - _posts
   - _publications
   - _portfolio

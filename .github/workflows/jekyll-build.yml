@@ -32,6 +32,9 @@ jobs:
 
       - name: Check personal pages and publication lists
         run: |
+          set -euxo pipefail
+          find _site -maxdepth 3 -type f | sort | head -n 100
+          grep -R -l "SynLogic: Synthesizing Verifiable Reasoning Data at Scale" _site || true
           test -f _site/index.html
           test -f _site/publications/index.html
           grep -q "SynLogic: Synthesizing Verifiable Reasoning Data at Scale" _site/index.html

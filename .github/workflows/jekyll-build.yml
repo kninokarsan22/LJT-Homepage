@@ -1,13 +1,10 @@
 name: Jekyll build
 
 on:
-  # Run after bad-pr check
-  workflow_run:
-    workflows: ["Cleanup bad PR"]
-    branches: [main]
-    types:
-      - completed
-      
+  push:
+    branches: [master]
+  workflow_dispatch:
+
 permissions:
   contents: read
 
@@ -32,3 +29,13 @@ jobs:
         run: bundle exec jekyll build --strict_front_matter
         env:
           JEKYLL_ENV: production
+
+      - name: Check personal pages and publication lists
+        run: |
+          test -f _site/index.html
+          test -f _site/publications/index.html
+          grep -q "SynLogic: Synthesizing Verifiable Reasoning Data at Scale" _site/index.html
+          grep -q "SynLogic: Synthesizing Verifiable Reasoning Data at Scale" _site/publications/index.html
+          ! test -e _site/talks/index.html
+          ! test -e _site/teaching/index.html
+          ! test -e _site/portfolio/index.html
